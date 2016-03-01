@@ -14,7 +14,7 @@ bool put(MyDIR *directory, string filename, int cs) {
     string content,line;
     ifstream inputFile; 
     string filePath = ((*directory).getCurrentPath() + "/" + filename);
-    inputFile.open(filePath, ios_base::binary);
+    inputFile.open(filePath.c_str(), ios_base::binary);
     cout << "GETPUT:put: reading and sending "<< filename << endl;
     if (inputFile.is_open())
     {
@@ -66,7 +66,7 @@ bool put(MyDIR *directory, string filename, int cs) {
 bool get(MyDIR *directory, string filename, int cs){
     ofstream outputFile;
     string filePath = ((*directory).getCurrentPath() + "/" + filename);
-    outputFile.open(filePath,ios_base::app);
+    outputFile.open(filePath.c_str(),ios_base::app);
     if (outputFile.is_open())
     {
         string content;
