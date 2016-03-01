@@ -1,3 +1,6 @@
 .DS_Store
 ftpClient.dSYM
 ftpServer.dSYM
+*.o
+ftpClient
+ftpServer

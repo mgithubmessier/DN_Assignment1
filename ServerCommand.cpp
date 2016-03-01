@@ -6,9 +6,11 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <errno.h>
-
+#include <stdio.h>
 #include <DB.h>
 #include <GETPUT.h> 
+
+using namespace std;
 const int S_ACK_SIZE = 1000;
 char acSAckBuffer [S_ACK_SIZE];
 

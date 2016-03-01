@@ -8,6 +8,9 @@
     #define GetCurrentDir getcwd
  #endif
 #include <iostream>
+#include <cstdio>
+using namespace std;
+
 MyDIR::MyDIR() {
   currentPath = getInitialPath();
   bool dirChanged = changeToDIR(".");

@@ -7,7 +7,6 @@
 #include <netinet/in.h>
 #include <errno.h>
 
-#include <Message.h>
 #include <Command.h>
 using namespace std;
 

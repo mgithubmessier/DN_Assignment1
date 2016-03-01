@@ -1,7 +1,6 @@
 #include <GETPUT.h>
 #include <fstream>
 #include <iostream>
-#include <iostream>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -10,11 +9,12 @@
 #include <netinet/in.h>
 #include <errno.h>
 
+using namespace std;
 bool put(MyDIR *directory, string filename, int cs) {
     string content,line;
     ifstream inputFile; 
     string filePath = ((*directory).getCurrentPath() + "/" + filename);
-    inputFile.open(filePath, ifstream::binary);
+    inputFile.open(filePath, ios_base::binary);
     cout << "GETPUT:put: reading and sending "<< filename << endl;
     if (inputFile.is_open())
     {
