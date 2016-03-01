@@ -25,12 +25,12 @@ bool put(MyDIR *directory, string filename, int cs) {
         int lengthOfFile = inputFile.tellg();
         inputFile.seekg(0, inputFile.beg);
 
-        int length = 2048;
+        int length = 1024;
         char ackArray [1000];
-        char buffer [length];
+        char buffer [1024];
         bool continueGetting = true;
 
-        for(int i = 1024; i < lengthOfFile; lengthOfFile-=length) {
+        for(int i = 1024; i < lengthOfFile; lengthOfFile-=1024) {
             send(cs,&length,sizeof(length),0);
 
             recv(cs,ackArray,1000,0);
