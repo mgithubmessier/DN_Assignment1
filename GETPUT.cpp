@@ -71,24 +71,31 @@ bool get(MyDIR *directory, string filename, int cs){
     {
         string content;
         bool continueGetting = true;
+	int bytesSoFar = 0;
+	int count = 0;
         do {
             int lineSize;
             recv(cs,&lineSize,sizeof(lineSize),0);
 
-            if(lineSize == 1)
-                break;
             const char *ack = "LINE_SIZE_ACK";
             send(cs,ack,sizeof(ack),0);
 
-
             //got here
             char content [lineSize];
-            recv(cs,content,sizeof(content),0);
+            recv(cs,content,sizeof(content),MSG_WAITALL);
+
 
             string exactConent = content;
             exactConent = exactConent.substr(0,lineSize);
             outputFile << exactConent;
 
+	    bytesSoFar+=lineSize;
+	    count++;
+
+	    if(count%100 == 0) {
+	      cout << bytesSoFar << " bytes written so far" << endl;
+	      cout << count << " 1024 byte sends so far" << endl;
+	    }
             const char *ack2 = "LINE_WRITE_ACK";
             send(cs,ack2,sizeof(ack2),0);
 
