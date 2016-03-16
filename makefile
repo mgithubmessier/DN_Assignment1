@@ -16,6 +16,8 @@ DB.o: DB.cpp
 GETPUT.o: GETPUT.cpp
 
 clean:
+	rm BIG_FILE.txt
+	rm SMALL_FILE.txt
 	rm ftpServer
 	rm ftpClient
 	rm *.o
