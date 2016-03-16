@@ -24,7 +24,7 @@ int main() {
 	int addressSize = sizeof(sockaddr);
 	address.sin_family=AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port  = htons(15003); 
+	address.sin_port  = htons(15004); 
 
 	int status=0;
 	status = bind(s,(struct sockaddr*) &address, addressSize);
