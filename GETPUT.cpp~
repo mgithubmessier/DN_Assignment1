@@ -43,7 +43,7 @@ bool put(MyDIR *directory, string filename, int cs) {
             recv(cs,ackArray,1000,0);
 	    
 	    oldPercent = percentComplete;	 
-	    percentComplete += 2048/lengthOfFile;
+	    percentComplete += (2048.0/((double)lengthOfFile));
 	    if(oldPercent != percentComplete) {	
 	      cout << percentComplete << "%" << endl;
 	    }	    
