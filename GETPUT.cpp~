@@ -30,6 +30,7 @@ bool put(MyDIR *directory, string filename, int cs) {
         char buffer [length];
         bool continueGetting = true;
 	double percentComplete = 0.0;
+	double oldPercent = 0.0;
         for(int i = 1024; i < lengthOfFile; lengthOfFile-=length) {
             send(cs,&length,sizeof(length),0);
 
@@ -41,9 +42,11 @@ bool put(MyDIR *directory, string filename, int cs) {
 
             recv(cs,ackArray,1000,0);
 	    
+	    oldPercent = percentComplete;	 
 	    percentComplete += 2048/lengthOfFile;
-	    cout << percentComplete << "%" << endl;
-	    
+	    if(oldPercent != percentComplete) {	
+	      cout << percentComplete << "%" << endl;
+	    }	    
             send(cs,&continueGetting,sizeof(continueGetting),0);
         }
         send(cs,&lengthOfFile,sizeof(lengthOfFile),0);
