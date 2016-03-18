@@ -48,7 +48,7 @@ bool put(MyDIR *directory, string filename, int cs) {
     	    percentComplete += (2048.0/((double)lengthOfFile));
     	    if(percentComplete - oldPercent > .05) {	
     	      oldPercent = percentComplete;	 
-    	      cout << percentComplete*10 << "%" << endl;
+    	      cout << percentComplete*100 << "%" << endl;
     	    }	    
             send(cs,&continueGetting,sizeof(continueGetting),0);
         }
@@ -105,7 +105,7 @@ bool get(MyDIR *directory, string filename, int cs){
 
     	    if(count%100 == 0) {
     	      cout << bytesSoFar << " bytes written so far" << endl;
-    	      cout << count << " 1024 byte sends so far" << endl;
+    	      cout << count << " 20148 byte sends so far" << endl;
 	    }
             const char *ack2 = "LINE_WRITE_ACK";
             send(cs,ack2,sizeof(ack2),0);
