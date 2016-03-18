@@ -29,25 +29,27 @@ bool put(MyDIR *directory, string filename, int cs) {
         char ackArray [1000];
         char buffer [length];
         bool continueGetting = true;
-	double percentComplete = 0.0;
-	double oldPercent = 0.0;
-	cout << percentComplete << "%" << endl;
+	    double percentComplete = 0.0;
+	    double oldPercent = 0.0;
+	    cout << percentComplete << "%" << endl;
         for(int i = 1024; i < lengthOfFile; lengthOfFile-=length) {
+            //cout << "GETPUT:put:lengthOfFile" << lengthOfFile << endl;
             send(cs,&length,sizeof(length),0);
 
             recv(cs,ackArray,1000,0);
             
             bzero(&buffer,length);
             inputFile.read(buffer,length);
+            //cout << buffer << endl;
             send(cs,buffer,length,0);
 
             recv(cs,ackArray,1000,0);
 	    
-	    percentComplete += (2048.0/((double)lengthOfFile));
-	    if(percentComplete - oldPercent > .01) {	
-	      oldPercent = percentComplete;	 
-	      cout << percentComplete << "%" << endl;
-	    }	    
+    	    percentComplete += (2048.0/((double)lengthOfFile));
+    	    if(percentComplete - oldPercent > .05) {	
+    	      oldPercent = percentComplete;	 
+    	      cout << percentComplete*10 << "%" << endl;
+    	    }	    
             send(cs,&continueGetting,sizeof(continueGetting),0);
         }
         send(cs,&lengthOfFile,sizeof(lengthOfFile),0);
@@ -59,8 +61,8 @@ bool put(MyDIR *directory, string filename, int cs) {
         send(cs,buffer,lengthOfFile,0);
         
         recv(cs,ackArray,1000,0);
-	percentComplete = 100;
-	cout << percentComplete << "%" << endl;
+	    percentComplete = 100.0;
+	    cout << percentComplete << "%" << endl;
 
         continueGetting = false;
         send(cs,&continueGetting,sizeof(continueGetting),0);
@@ -80,8 +82,8 @@ bool get(MyDIR *directory, string filename, int cs){
     {
         string content;
         bool continueGetting = true;
-	int bytesSoFar = 0;
-	int count = 0;
+	    int bytesSoFar = 0;
+	    int count = 0;
         do {
             int lineSize;
             recv(cs,&lineSize,sizeof(lineSize),0);
@@ -93,17 +95,17 @@ bool get(MyDIR *directory, string filename, int cs){
             char content [lineSize];
             recv(cs,content,sizeof(content),MSG_WAITALL);
 
-
             string exactConent = content;
             exactConent = exactConent.substr(0,lineSize);
+            //cout << exactConent << endl;
             outputFile << exactConent;
 
-	    bytesSoFar+=lineSize;
-	    count++;
+    	    bytesSoFar+=lineSize;
+    	    count++;
 
-	    if(count%100 == 0) {
-	      cout << bytesSoFar << " bytes written so far" << endl;
-	      cout << count << " 1024 byte sends so far" << endl;
+    	    if(count%100 == 0) {
+    	      cout << bytesSoFar << " bytes written so far" << endl;
+    	      cout << count << " 1024 byte sends so far" << endl;
 	    }
             const char *ack2 = "LINE_WRITE_ACK";
             send(cs,ack2,sizeof(ack2),0);
