@@ -23,9 +23,9 @@ int main() {
 	address.sin_family=AF_INET;                         
 	address.sin_port  = htons(15004); // <-------------------  port 15000
 	//amazon aws server
-	inet_pton(AF_INET,"52.36.181.172",&address.sin_addr); 
+	//inet_pton(AF_INET,"52.36.181.172",&address.sin_addr); 
 	//localhost
-	//inet_pton(AF_INET,"127.0.0.1",&address.sin_addr); 
+	inet_pton(AF_INET,"127.0.0.1",&address.sin_addr); 
 
 
 	int status=0;
